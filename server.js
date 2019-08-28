@@ -1,26 +1,26 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const session = require("express-sessions");
+const session = require("express-session");
 const knexSessionStore = require("connect-session-knex")(session);
 const userRouter = require("./Users/users-router.js");
 
 const sessionOptions = {
-	name: "myCookie",
-	secret: "c00kiesRg00dMeWantK00Cies",
+	name: "mycookie",
+	secret: "cookiesareyumyumiwantcookies",
 	cookie: {
-		maxAge: 100 * 60 * 60,
+		maxAge: 1000 * 60 * 60,
 		secure: false,
 		httpOnly: true,
 	},
 	resave: false,
-	saveUninitalised: false,
+	saveUninitalized: false,
 	store: new knexSessionStore({
-		knex: require("./bd-config.js"),
+		knex: require("./db-config.js"),
 		tablename: "sessions",
 		sidfieldname: "sid",
 		createtable: true,
-		clearinterval: 1000 * 60 * 60,
+		clearinterval: 1000 * 60 * 60, //an hour
 	}),
 };
 
